@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>SDGroupId</groupId>
+    <artifactId>AskOmDchBDD</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <allure.version>2.32.0</allure.version>
+    </properties>
+
+    <dependencies>
+        <!--ToDo: 1.Selenium WebDriver-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.39.0</version>
+        </dependency>
+
+        <!--ToDo: 2.Cucumber && Cucumber-jUnit-->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.33.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>7.33.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--ToDo: 3.JUnit4-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--ToDo: 4.Cucumber  PicoContainer -Dependency Injection-->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>7.33.0</version>
+        </dependency>
+
+        <!--ToDo: 5.Allure Cucumber JVM -Reporting-->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ToDo: Allure JUnit integration -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit4</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+            <!--ToDo:1 Surefire Plugin - Parallel Test Running-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>  <!-- UPDATED: Latest version -->
+                <configuration>
+                    <parallel>methods</parallel><!-- PARALLEL EXECUTION -->
+                    <threadCount>4</threadCount>  <!-- CHANGED: Fixed 4 threads instead of unlimited -->
+                    <perCoreThreadCount>false</perCoreThreadCount><!-- FAILURE HANDLING -->
+                    <testFailureIgnore>false</testFailureIgnore>  <!-- CHANGED: Fail build on test failure -->
+                    <rerunFailingTestsCount>1</rerunFailingTestsCount>  <!-- ADDED: Retry failed tests once -->
+                    <includes> <!-- TEST SELECTION -->
+                        <include>**/TestRunner.java</include>
+                    </includes>
+                    <systemPropertyVariables> <!-- SYSTEM PROPERTIES -->
+                        <cucumber.publish.quiet>true</cucumber.publish.quiet>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <!--ToDo:2 maven-cucumber-reporting - Test Reporting-->
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>5.7.8</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>Cucumber Test Report</projectName>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <inputDirectory>${project.build.directory}</inputDirectory>
+                            <jsonFiles>
+                                <param>**/*.json</param>
+                            </jsonFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
