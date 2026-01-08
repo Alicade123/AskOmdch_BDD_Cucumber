@@ -6,15 +6,14 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/products_filter_by_price_range",
         glue = {
-                "scenario_outline",
-                "base.dependenceInjection"
-        },
-        plugin = {
-                "pretty",
-                "html:target/cucumber-report.html",
-                "json:target/cucumber-reports/Cucumber.json"},
+                "step.definitions.price.range.filtering"
+                },
+//        plugin = {
+//                "pretty",
+//                "html:target/cucumber-report.html",
+//                "json:target/cucumber-reports/Cucumber.json"},
         monochrome = true
 )
 public class TestRunner {}
