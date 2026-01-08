@@ -1,0 +1,2 @@
+# AskOmdch_BDD_Cucumber
+The primary purpose of such a repository is to store executable specifications written in the human-readable Gherkin language alongside the automation code that brings those specifications to life. This structure create bridge btn developers, QA  Testers and non-technical stakeholders: "product owners | business analysts"
