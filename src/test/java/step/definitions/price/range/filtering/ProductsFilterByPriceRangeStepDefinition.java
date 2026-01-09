@@ -18,7 +18,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -49,8 +48,6 @@ public class ProductsFilterByPriceRangeStepDefinition {
     }
     @And("I choose the {double} range and {double} range")
     public void setPriceRange(double minValue, double maxValue){
-    By minValueElement = By.id("min_price");
-    By maxValueElement = By.id("max_price");
     By filterButton = By.cssSelector(".price_slider_amount button");
 
         WebElement priceForm = driver.findElement(rangeForm);
@@ -72,9 +69,9 @@ public class ProductsFilterByPriceRangeStepDefinition {
         List<Double> validatedPrices = new ArrayList<>();
         for(WebElement prc : pricesFound){
             validatedPrices.add(Double.parseDouble(prc.getText().replaceAll("[^0-9.]", "")));
-//            validatedPrices.add(Double.parseDouble(prc.getText().substring(1)));
+
         }
-        System.out.print("Provided MinValue: "+minValue+" Provided MaxValue: "+validatedPrices+" Found Product Prices: "+validatedPrices);
+        System.out.print("Provided MinValue: "+minValue+" Provided MaxValue: "+minValue+" Found Product Prices: "+validatedPrices);
         assertTrue(validatedPrices.stream().allMatch(e->e>=minValue&&e<=maxValue));
     }
     @After

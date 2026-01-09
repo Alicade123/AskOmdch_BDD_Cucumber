@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/products_filter_by_price_range",
+        features = "src/test/resources/features",
         glue = {
-                "step.definitions.price.range.filtering"
+                "step.definitions"
                 },
 //        plugin = {
 //                "pretty",
