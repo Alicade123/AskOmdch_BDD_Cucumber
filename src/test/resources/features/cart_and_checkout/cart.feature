@@ -12,6 +12,17 @@ Feature: Cart and checkout process
     Then product should be listed in the cart
 
     When user proceeds to checkout
-    And user fills billing details
+    And user fills billing details:
+      | firstName | Jean paul        |
+      | lastName  | Iradukunda         |
+      | company name  | Test Ltd    |
+      | country   | Rwanda      |
+      | Street address   | KN 12 Road  |
+      | city      | Kigali      |
+      | state     | Kigali City |
+      | zip code      | 250        |
+      | phone     | 0781234567 |
+      | email address     | john@test.com |
+
     And user places the order
     Then order should be placed successfully
