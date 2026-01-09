@@ -7,10 +7,17 @@ Feature: Cart and checkout process
     Given user is on the home page
     When user navigates to the Store page
     And user adds a "<products name>" to the cart
+<<<<<<< HEAD
       |products name |
       |Black Over-the-shoulder Handbag |
       |Blue Denim Shorts |
       |Blue Shoes       |
+=======
+    |products name |
+    |Black Over-the-shoulder Handbag |
+    |Blue Denim Shorts |
+    |Blue Shoes       |
+>>>>>>> 7bcead70f69f87c734f6f5f38c112a1df35247d3
     And user opens the cart page
     Then product should be listed in the cart
 
