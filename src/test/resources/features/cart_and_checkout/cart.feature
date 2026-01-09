@@ -1,38 +1,23 @@
-Feature: Cart and checkout process
+Feature: checkout functionality
+
   As a customer
-  I want to review my cart and checkout
-  So that I can place an order successfully
+  I want to proceed to checkout
+  so that I can purchase the products
 
-  Scenario: Complete checkout with a product in cart
-    Given user is on the home page
-    When user navigates to the Store page
-    And user adds a "<products name>" to the cart
-<<<<<<< HEAD
-      |products name |
-      |Black Over-the-shoulder Handbag |
-      |Blue Denim Shorts |
-      |Blue Shoes       |
-=======
-    |products name |
-    |Black Over-the-shoulder Handbag |
-    |Blue Denim Shorts |
-    |Blue Shoes       |
->>>>>>> 7bcead70f69f87c734f6f5f38c112a1df35247d3
-    And user opens the cart page
-    Then product should be listed in the cart
+  Scenario: Successful checkout with valid shipping and payment details
+    Given I have product number 1 in my cart
+    And I am on the checkout page
+    When I provide valid shipping details
+      | firstName     | The-User1          |
+      | lastName      | Aline              |
+      | country       | US             |
+      | streetAddress | st34566            |
+      | town          | Gasabo             |
+      | state         | AL             |
+      | postCode      | 0000               |
+      | phone         | 0788888888         |
+      | email         | theuser2@gmail.com |
+    And I select
+    And I place the order
+    Then I should see an order confirmation message
 
-    When user proceeds to checkout
-    And user fills billing details:
-      | firstName | Jean paul        |
-      | lastName  | Iradukunda         |
-      | company name  | Test Ltd    |
-      | country   | Rwanda      |
-      | Street address   | KN 12 Road  |
-      | city      | Kigali      |
-      | state     | Kigali City |
-      | zip code      | 250        |
-      | phone     | 0781234567 |
-      | email address     | john@test.com |
-
-    And user places the order
-    Then order should be placed successfully
