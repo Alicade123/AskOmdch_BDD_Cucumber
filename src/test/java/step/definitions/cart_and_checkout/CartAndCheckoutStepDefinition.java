@@ -94,15 +94,15 @@ public class CartAndCheckoutStepDefinition {
     }
     @And("I select")
     public void paymentMethod(DataTable paymentMethod){
-//        List<String> pmethod = paymentMethod.asList();
-//        List<WebElement>labels = driver.findElements(By.cssSelector("ul[class='wc_payment_methods payment_methods methods'] label"));
-//        for (WebElement label : labels){
-//            System.out.println(label.getText());
-//            if(label.getText().contains(pmethod.get(0))){
-//                String forId =  label.getAttribute("for");
-//                driver.findElement(By.id(forId)).click();
-//            }
-//        }
+        List<String> pmethod = paymentMethod.asList();
+        List<WebElement>labels = driver.findElements(By.cssSelector("ul[class='wc_payment_methods payment_methods methods'] label"));
+        for (WebElement label : labels){
+            System.out.println(label.getText());
+            if(label.getText().contains(pmethod.get(0))){
+                String forId =  label.getAttribute("for");
+                driver.findElement(By.id(forId)).click();
+            }
+        }
 
     }
 
@@ -117,9 +117,9 @@ public class CartAndCheckoutStepDefinition {
     public void i_should_see_an_order_confirmation_message() {
 
     }
-//    @After
-//    public void tearDown(){
-//        if(driver!= null) driver.quit();
-//    }
+    @After
+    public void tearDown(){
+        if(driver!= null) driver.quit();
+    }
 
 }
