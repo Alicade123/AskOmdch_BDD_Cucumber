@@ -63,7 +63,7 @@ public class ProductsFilterByPriceRangeStepDefinition {
         for(WebElement prc : pricesFound){
             validatedPrices.add(Double.parseDouble(prc.getText().replaceAll("[^0-9.]", "")));
         }
-        System.out.print("Provided MinValue: "+minValue+" Provided MaxValue: "+validatedPrices+" Found Product Prices: "+validatedPrices);
+        System.out.print("Provided MinValue: "+minValue+" Provided MaxValue: "+maxValue+" Found Product Prices: "+validatedPrices);
         assertTrue(validatedPrices.stream().allMatch(e->e>=minValue&&e<=maxValue));
     }
 
