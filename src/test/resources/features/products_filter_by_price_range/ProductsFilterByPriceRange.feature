@@ -11,3 +11,5 @@ Feature: Products Filter By Price Range
     Examples:
       |minimumPrice|maximumPrice|
       |50|100|
+      |50|60|
+      |100|5000|
