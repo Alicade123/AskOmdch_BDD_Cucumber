@@ -49,7 +49,7 @@ Feature: User Registration
 
     Examples:
       | username           | email               | password        | error_message                                              |
-      | newAppUser1        | newAppUser1@example01.com  | Pass123!    | An account is already registered with that username        |
-      | newAppUser2        | newAppUser21@example01.com    | Pass456!      | An account is already registered with your email address   |
+      | newAppUser1        | newAppUser1@example01.com  | Pass123!    | Error: An account is already registered with your email address. Please log in.       |
+      | newAppUser2        | newAppUser21@example01.com    | Pass456!      | Error: An account is already registered with your email address. Please log in.   |
 
 
