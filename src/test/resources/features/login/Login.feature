@@ -11,3 +11,15 @@ Feature: Login Functionality
       |username|password|
       |USADeltaForce|Pass123!|
       |USANavy|Pass456!|
+
+  @login @negative
+  Scenario Outline: Login fails with invalid credentials
+    When I enter username "<username>" in login form
+    And I enter password "<password>" in login form
+    And I click on Login button
+    Then I should see login error "<error_message>"
+
+    Examples:
+      | username     | password        | error_message                                                     |
+      | invaliduser | Test@12345      | Unknown username. Check again or try your email address           |
+      | fadi        | WrongPassword   | The password you entered for the username testuser is incorrect  |
