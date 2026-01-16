@@ -1,8 +1,7 @@
 package step.definitions.login;
 
+import dependency.injection.DriverFactory;
 import dependency.injection.UtilClass;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,12 +9,12 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.LoginFunctionality;
+
 
 import java.time.Duration;
+
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,36 +22,42 @@ import static org.junit.Assert.assertTrue;
 public class LoginUsingPOMStructure {
 
     private UtilClass utilClass;
-    private LoginFunctionality loginFunctionality;
-    private WebDriver driver;
+
+    private WebDriver driver = DriverFactory.getDriver();
     private WebDriverWait wait;
 
-    public LoginUsingPOMStructure(UtilClass utilClass, LoginFunctionality loginFunctionality){
+    public LoginUsingPOMStructure(UtilClass utilClass){
         this.utilClass = utilClass;
-        this.loginFunctionality = loginFunctionality;
     }
-
-    @Before
-    public void starting(){
-        loginFunctionality.setUp();
-    }
-
 
     @Given("As I'm on the AskOmDch Landing page I navigate to account page")
     public void clickAccount(){
-        loginFunctionality.goToAccountPage();
+        driver.get(UtilClass.SITEURL);
+        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement AccountLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Account")));
+        AccountLink.click();
     }
 
     @When("I enter valid credentials {string} and {string}")
     public void enterCredentials(String username, String password){
-        loginFunctionality.enterCredentials(username, password);
         utilClass.username = username;
-        System.out.println("Entered valid credentials - Username: " + username);
+        WebElement name= wait.until(ExpectedConditions.elementToBeClickable(By.id("username")));
+        WebElement passcode= wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
+        name.sendKeys(username);
+        passcode.sendKeys(password);
+        driver.findElement(By.cssSelector("button[value='Log in']")).click();
+
     }
 
     @Then("I get redirected to Dashboard Page")
     public void getDashboardAccess(){
-        loginFunctionality.accessDashboard(utilClass.username);
+
+        WebElement loggedUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".woocommerce-MyAccount-content p")));
+        String expectedResult = "Hello "+utilClass.username+" (not "+utilClass.username+"? Log out)";
+        String actualResult = loggedUser.getText();
+        assertEquals("Something went wrong", expectedResult, actualResult );
+        assertTrue(loggedUser.isDisplayed());
     }
 
 
@@ -160,8 +165,5 @@ public class LoginUsingPOMStructure {
         }
     }
 
-    @After
-    public void close(){
-        loginFunctionality.tearDown().quit();
-    }
+
 }

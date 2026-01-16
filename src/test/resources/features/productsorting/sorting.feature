@@ -3,7 +3,7 @@ Feature: Sorting products in the store
   Scenario Outline: Sort products using dropdown options
     Given I am on the store page of the askomdch website
     When I select "<sortOption>" from the sorting dropdown
-    Then I should see products sorted by "<expectedCriteria>"dev
+    Then I should see products sorted by "<expectedCriteria>"
 
     Examples:
       | sortOption               | expectedCriteria   |

@@ -1,8 +1,7 @@
 package step.definitions.signup;
 
+import dependency.injection.DriverFactory;
 import dependency.injection.UtilClass;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,7 +9,7 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,19 +20,12 @@ import static org.junit.Assert.assertTrue;
 
 public class SignupStepDefinitions {
 
-    private WebDriver driver;
+    private WebDriver driver = DriverFactory.getDriver();
     private WebDriverWait wait;
     private UtilClass utilClass;
-
+    private String WebsiteUrl= UtilClass.SITEURL;
     public SignupStepDefinitions(UtilClass utilClass){
         this.utilClass = utilClass;
-    }
-
-    private String WebsiteUrl= "https://askomdch.com/";
-
-    @Before
-    public void setUp(){
-        driver = new ChromeDriver();
     }
 
     @Given("I am on any page of AskomDch website")
@@ -245,10 +237,5 @@ public class SignupStepDefinitions {
                 actualError.contains(expectedError));
     }
 
-    @After
-    public void tearDown(){
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+
 }

@@ -1,15 +1,8 @@
 package dependency.injection;
 
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
 
-public class Hooks {
-
-    @Before
-    public void setUp() {
-        DriverFactory.getDriver();
-    }
-
+public class Hook {
     @After
     public void tearDown() {
         DriverFactory.quitDriver();

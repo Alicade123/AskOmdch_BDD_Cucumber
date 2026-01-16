@@ -1,18 +1,19 @@
 package step.definitions.cart_and_checkout;
 
 
+import dependency.injection.DriverFactory;
+import dependency.injection.UtilClass;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,28 +23,17 @@ import java.util.List;
 import java.util.Map;
 public class CartAndCheckoutStepDefinition {
 
-    private WebDriverWait wait ;
-    private WebDriver driver;
+    private WebDriver driver = DriverFactory.getDriver();
+    private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds((15)));
 
-    @Before
-    public void setUp(){
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds((15)));
-    }
-
-
-    @Given("I have product number {int} in my cart")
-    public void i_have_items_in_my_cart(int index) {
-        driver.get("https://askomdch.com/");
-        WebElement storeLink = driver.findElement(By.linkText("Store"));
-        storeLink.click();
-        List<WebElement> products = driver.findElements(By.cssSelector(".products .product"));
-        WebElement chosenProduct = products.get(index - 1);
-        WebElement addToCartBtn = chosenProduct.findElement(By.cssSelector("a.button"));
-        addToCartBtn.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class,'added_to_cart') and text()='View cart']")));
-        WebElement cartBadge = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[class='ast-cart-menu-wrap'] span")));
-        cartBadge.click();
+    @Given("I add {string} in my cart")
+    public void addingProductToCart(String productName) {
+            driver.get(UtilClass.SITEURL+"store");
+            driver.manage().window().maximize();
+            By viewCart =By.cssSelector( "a[title=\"View cart\"]") ;
+            By addToCartBtn  = By.cssSelector("a[aria-label=\"Add “"+productName+"” to your cart\"]");
+            wait.until(ExpectedConditions.elementToBeClickable(addToCartBtn)).click();
+            wait.until(ExpectedConditions.elementToBeClickable(viewCart)).click();
     }
 
     @And("I am on the checkout page")
@@ -110,16 +100,14 @@ public class CartAndCheckoutStepDefinition {
     public void i_place_the_order() {
         WebElement placeOrderBtn = driver.findElement(By.id("place_order"));
         placeOrderBtn.click();
-
     }
 
     @Then("I should see an order confirmation message")
     public void i_should_see_an_order_confirmation_message() {
-
-    }
-    @After
-    public void tearDown(){
-        if(driver!= null) driver.quit();
+    String expectedResult = "Thank you. Your order has been received.";
+    By statusMessage = By.cssSelector(".woocommerce-order p");
+    String actualResult = wait.until(ExpectedConditions.visibilityOfElementLocated(statusMessage)).getText();
+    Assert.assertEquals("Something Went Wrong", expectedResult,actualResult);
     }
 
 }

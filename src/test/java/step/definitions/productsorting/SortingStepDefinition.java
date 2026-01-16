@@ -1,22 +1,18 @@
 package step.definitions.productsorting;
 
-import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
+import dependency.injection.DriverFactory;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 import org.openqa.selenium.support.ui.Select;
 
 
 public class SortingStepDefinition {
-    private WebDriver driver;
-    @Before
-    public void  setUp(){
-        driver = new ChromeDriver();
-    }
+    private WebDriver driver = DriverFactory.getDriver();
+
     private By selectDropDownBy = By.xpath("//select[@aria-label='Shop order']");
     @Given("I am on the store page of the askomdch website")
     public void i_am_on_the_store_page_of_askomdch_website() {
