@@ -11,4 +11,3 @@ Feature: Login Functionality
       |username|password|
       |USADeltaForce|Pass123!|
       |USANavy|Pass456!|
-
