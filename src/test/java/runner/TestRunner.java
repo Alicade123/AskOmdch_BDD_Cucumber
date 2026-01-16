@@ -6,9 +6,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/productsorting",
+        features = "src/test/resources/features/login",
         glue = {
-                "step.definitions.productsorting"
+                "step.definitions.login",
+                "dependency.injection"
                 },
         plugin = {
                 "pretty",
