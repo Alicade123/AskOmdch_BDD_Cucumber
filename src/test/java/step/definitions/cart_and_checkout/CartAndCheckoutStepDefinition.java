@@ -1,6 +1,7 @@
 package step.definitions.cart_and_checkout;
 
 
+import dependency.injection.DriverFactory;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -22,15 +23,8 @@ import java.util.List;
 import java.util.Map;
 public class CartAndCheckoutStepDefinition {
 
-    private WebDriverWait wait ;
-    private WebDriver driver;
-
-    @Before
-    public void setUp(){
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds((15)));
-    }
-
+    private WebDriver driver = DriverFactory.getDriver();
+    private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds((15)));
 
     @Given("I have product number {int} in my cart")
     public void i_have_items_in_my_cart(int index) {
@@ -116,10 +110,6 @@ public class CartAndCheckoutStepDefinition {
     @Then("I should see an order confirmation message")
     public void i_should_see_an_order_confirmation_message() {
 
-    }
-    @After
-    public void tearDown(){
-        if(driver!= null) driver.quit();
     }
 
 }
