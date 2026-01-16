@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
         glue = {
                 "step.definitions.productsorting"
                 },
-//        plugin = {
-//                "pretty",
-//                "html:target/cucumber-report.html",
-//                "json:target/cucumber-reports/Cucumber.json"},
-        monochrome = true
+        plugin = {
+                "pretty",
+                "html:target/cucumber-report.html",
+                "json:target/cucumber-reports/Cucumber.json"}
+
 )
 public class TestRunner {}
