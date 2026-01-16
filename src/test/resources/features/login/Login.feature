@@ -23,3 +23,5 @@ Feature: Login Functionality
       | username     | password        | error_message                                                     |
       | invaliduser | Test@12345      | Unknown username. Check again or try your email address           |
       | fadi        | WrongPassword   | The password you entered for the username testuser is incorrect  |
+
+

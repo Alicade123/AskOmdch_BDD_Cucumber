@@ -35,14 +35,6 @@ public class LoginUsingPOMStructure {
     @Before
     public void starting(){
         loginFunctionality.setUp();
-
-        // Try to get driver reference from LoginFunctionality
-        try {
-            this.driver = loginFunctionality.getDriver();
-            this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        } catch (Exception e) {
-            System.out.println("Note: Could not get driver from LoginFunctionality. Some methods may use POM fallback.");
-        }
     }
 
 
