@@ -10,9 +10,7 @@ Feature: User Registration
     Given I am on any page of AskomDch website
     When I click on the "Account" link in the navigation bar
 
-
   Scenario Outline: Registering successful
-
 
     When I enter "<Username>" "<Email address>" and "<Password>" in the registration form
     And I click the "REGISTER" button
@@ -21,8 +19,8 @@ Feature: User Registration
 
     Examples:
       | Username    | Email address     | Password      |
-      | USADeltaForce01   | B2Sprit@example01.com      | Pass123! |
-      | USANavy01   | JetFighter1@example01.com        | Pass456!  |
+      | newAppUser1        | newAppUser1@example01.com      | Pass123! |
+      | newAppUser2   | newAppUser21@example01.com        | Pass456!  |
 
 
   @registration @negative
@@ -51,7 +49,7 @@ Feature: User Registration
 
     Examples:
       | username           | email               | password        | error_message                                              |
-      | USADeltaForce01    | hali01@example.com  | Test@1234569    | An account is already registered with that username        |
-      | newuser12312345    | hali@example.com    | Test@12345      | An account is already registered with your email address   |
+      | newAppUser1        | newAppUser1@example01.com  | Pass123!    | An account is already registered with that username        |
+      | newAppUser2        | newAppUser21@example01.com    | Pass456!      | An account is already registered with your email address   |
 
 
